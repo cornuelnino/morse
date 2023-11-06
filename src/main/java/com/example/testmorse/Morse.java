@@ -1,6 +1,4 @@
 package com.example.testmorse;
-
-import javafx.application.Platform;
 import javafx.scene.paint.Color;
 
 public class Morse {

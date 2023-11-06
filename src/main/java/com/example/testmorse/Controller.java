@@ -32,7 +32,7 @@ public class Controller implements Initializable {
         System.out.println("\nEntrez une phrase :");
 
         entree = In.readString();
-        entree.toLowerCase();
+        entree = entree.toLowerCase();
 
         if(entree.matches(rexex)){
             String avecSlash = morse.insertSlash(entree);
