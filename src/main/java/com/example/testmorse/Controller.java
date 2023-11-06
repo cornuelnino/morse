@@ -3,6 +3,7 @@ package com.example.testmorse;
 import com.example.testmorse.clavier.In;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
@@ -13,6 +14,7 @@ public class Controller implements Initializable {
     public Morse morse;
     public Circle circleMorse;
     public Button buttonMorse;
+    public TextField textFieldMorse;
     String rexex = "^[A-Za-z0-9\\s]+$";
     String entree;
 
@@ -23,31 +25,32 @@ public class Controller implements Initializable {
 
         buttonMorse.setOnAction(event -> {
             startMorse();
-            buttonMorse.setDisable(true);
-            buttonMorse.setText("EN TRADUCTION");
         });
     }
 
     public void startMorse(){
-        System.out.println("\nEntrez une phrase :");
 
-        entree = In.readString();
-        entree = entree.toLowerCase();
+        if(textFieldMorse.getText() != null){
+            entree = textFieldMorse.getText().toLowerCase();
+        }
 
         if(entree.matches(rexex)){
-            String avecSlash = morse.insertSlash(entree);
+            buttonMorse.setDisable(true);
+            buttonMorse.setText("EN TRADUCTION");
 
-            String morsise = morse.transformToMorse(avecSlash);
+            String entreeSlash = morse.insertSlash(entree);
+
+            String entreeMorse = morse.transformToMorse(entreeSlash);
 
             Thread led = new Thread(()->{
-                morse.printMorse(morsise);
+                morse.printMorse(entreeMorse);
                 buttonMorse.setDisable(false);
             });
             led.start();
 
 
         } else {
-            System.out.println("Mauvaise saisie, veuillez reessayer");
+            textFieldMorse.setText("");
         }
     }
 
