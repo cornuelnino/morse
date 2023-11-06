@@ -59,12 +59,12 @@ public class Morse {
 
 
             try {
+                System.out.print(currentChar);
 
                 if (currentChar == '/') {
-                    System.out.print(currentChar);
                     Thread.sleep(tempsSlash);
+
                 } else if (currentChar == '.') {
-                    System.out.print(currentChar);
                     LED(true);
                     Thread.sleep(tempsPoint);
 
@@ -72,17 +72,13 @@ public class Morse {
                     Thread.sleep(tempsPoint);
 
                 } else if (currentChar == '-') {
-                    System.out.print(currentChar);
                     LED(true);
-
                     Thread.sleep(tempsTiret);
 
                     LED(false);
-
                     Thread.sleep(tempsTiret);
 
                 } else if (currentChar == ' ') {
-                    System.out.print(currentChar);
                     Thread.sleep(tempsEspace);
                 }
             } catch (InterruptedException ex) {
