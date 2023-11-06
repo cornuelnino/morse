@@ -76,7 +76,7 @@ public class Morse {
                     Thread.sleep(tempsTiret);
 
                     LED(false);
-                    Thread.sleep(tempsTiret);
+                    Thread.sleep(tempsPoint);
 
                 } else if (currentChar == ' ') {
                     Thread.sleep(tempsEspace);
@@ -86,6 +86,7 @@ public class Morse {
             }
 
         }
+        controller.buttonMorse.setText("LANCER TRADUCTION");
     }
 
     private void LED(boolean etat) {

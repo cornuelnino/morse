@@ -23,6 +23,8 @@ public class Controller implements Initializable {
 
         buttonMorse.setOnAction(event -> {
             startMorse();
+            buttonMorse.setDisable(true);
+            buttonMorse.setText("EN TRADUCTION");
         });
     }
 
@@ -39,8 +41,10 @@ public class Controller implements Initializable {
 
             Thread led = new Thread(()->{
                 morse.printMorse(morsise);
+                buttonMorse.setDisable(false);
             });
             led.start();
+
 
         } else {
             System.out.println("Mauvaise saisie, veuillez reessayer");
