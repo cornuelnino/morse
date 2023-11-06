@@ -1,4 +1,5 @@
 package com.example.testmorse;
+import javafx.application.Platform;
 import javafx.scene.paint.Color;
 
 public class Morse {
@@ -51,40 +52,57 @@ public class Morse {
     }
 
     public void printMorse(String s) {
+        StringBuilder stringBuilder = new StringBuilder();
+        controller.buttonMorse.setDisable(true);
+        controller.buttonMorse.setText("EN TRADUCTION");
 
-        for (int i = 0; i < s.length(); i++) {
-            char currentChar = s.charAt(i);
+        Thread morse = new Thread(()->{
 
+            for (int i = 0; i < s.length(); i++) {
 
-            try {
-                System.out.print(currentChar);
+                char currentChar = s.charAt(i);
 
-                if (currentChar == '/') {
-                    Thread.sleep(tempsSlash);
+                try {
+                    stringBuilder.append(currentChar);
 
-                } else if (currentChar == '.') {
-                    LED(true);
-                    Thread.sleep(tempsPoint);
+                    Platform.runLater(()->{
+                        controller.labelMorse.setText(stringBuilder.toString());
+                    });
 
-                    LED(false);
-                    Thread.sleep(tempsPoint);
+                    switch (currentChar){
+                        case '/':
+                            Thread.sleep(tempsSlash);
+                            break;
+                        case '.':
+                            LED(true);
+                            Thread.sleep(tempsPoint);
 
-                } else if (currentChar == '-') {
-                    LED(true);
-                    Thread.sleep(tempsTiret);
+                            LED(false);
+                            Thread.sleep(tempsPoint);
+                            break;
+                        case '-':
+                            LED(true);
+                            Thread.sleep(tempsTiret);
 
-                    LED(false);
-                    Thread.sleep(tempsPoint);
+                            LED(false);
+                            Thread.sleep(tempsPoint);
+                            break;
+                        case ' ':
+                            Thread.sleep(tempsEspace);
+                            break;
 
-                } else if (currentChar == ' ') {
-                    Thread.sleep(tempsEspace);
+                    }
+                } catch (InterruptedException ex) {
+                    throw new RuntimeException(ex);
                 }
-            } catch (InterruptedException ex) {
-                throw new RuntimeException(ex);
-            }
 
-        }
-        controller.buttonMorse.setText("LANCER TRADUCTION");
+            }
+            Platform.runLater(()->{
+                controller.buttonMorse.setText("LANCER TRADUCTION");
+            });
+            controller.buttonMorse.setDisable(false);
+        });
+        morse.start();
     }
 
     private void LED(boolean etat) {

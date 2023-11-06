@@ -3,6 +3,7 @@ package com.example.testmorse;
 import com.example.testmorse.clavier.In;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -15,6 +16,7 @@ public class Controller implements Initializable {
     public Circle circleMorse;
     public Button buttonMorse;
     public TextField textFieldMorse;
+    public Label labelMorse;
     String rexex = "^[A-Za-z0-9\\s]+$";
     String entree;
 
@@ -24,30 +26,21 @@ public class Controller implements Initializable {
         morse = new Morse(this);
 
         buttonMorse.setOnAction(event -> {
-            startMorse();
+            if(textFieldMorse.getText() != null){
+                entree = textFieldMorse.getText().toLowerCase();
+
+                startMorse();
+            }
         });
     }
 
     public void startMorse(){
 
-        if(textFieldMorse.getText() != null){
-            entree = textFieldMorse.getText().toLowerCase();
-        }
-
         if(entree.matches(rexex)){
-            buttonMorse.setDisable(true);
-            buttonMorse.setText("EN TRADUCTION");
-
             String entreeSlash = morse.insertSlash(entree);
-
             String entreeMorse = morse.transformToMorse(entreeSlash);
 
-            Thread led = new Thread(()->{
-                morse.printMorse(entreeMorse);
-                buttonMorse.setDisable(false);
-            });
-            led.start();
-
+            morse.printMorse(entreeMorse);
 
         } else {
             textFieldMorse.setText("");

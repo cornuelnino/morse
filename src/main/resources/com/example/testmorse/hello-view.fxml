@@ -4,6 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
 <VBox alignment="CENTER" prefHeight="317.0" prefWidth="275.0" spacing="20.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.testmorse.Controller">
     <padding>
@@ -11,5 +12,10 @@
     </padding>
    <Circle fx:id="circleMorse" fill="DODGERBLUE" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
    <TextField fx:id="textFieldMorse" />
+   <Label fx:id="labelMorse" prefHeight="33.0" prefWidth="235.0">
+      <font>
+         <Font size="14.0" />
+      </font>
+   </Label>
    <Button id="buttonMorse" fx:id="buttonMorse" mnemonicParsing="false" stylesheets="@styles.css" text="LANCER LA TRADUCTION" textAlignment="CENTER" />
 </VBox>
